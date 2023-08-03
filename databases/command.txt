@@ -1,0 +1,18 @@
+1. start mysql8
+    "docker-compose --profile mysql8 up"
+2. start mysql5
+    "docker-compose --profile mysql5 up"
+3 start mssql2017
+    "docker-compose --profile mssql2017 up"
+4. start postgres15
+    "docker-compose --profile postgres15 up"
+5 start oracle19c
+    "docker-compose --profile oracle19c up"
+6. start oracle latest
+    "docker-compose --profile oracle up"
+7.  start mssql19
+    "docker-compose --profile mssql19 up"
+8. start postgres9
+    "docker-compose --profile postgres9 up"
+6. start all
+    "docker-compose up"
