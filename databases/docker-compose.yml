@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  mysql8:
+    image: mysql:8
+    container_name: mysql8_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: jiradb
+      MYSQL_USER: jirauser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    profiles:
+      - mysql8
+
+  mysql5.7:
+    image: mysql:5.7
+    container_name: mysql5_7_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: jiradb
+      MYSQL_USER: jirauser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+    profiles:
+      - mysql5
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: mssql_db
+    restart: always
+    environment:
+      SA_PASSWORD: Password@123
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    profiles:
+      - mssql2017
+
+  postgres15:
+    image: postgres:15
+    container_name: postgres15_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jiradb
+    ports:
+      - "5432:5432"
+    profiles:
+      - postgres15
+
+  oracle19c:
+    image: container-registry.oracle.com/database/enterprise:19.3.0.0
+    container_name: oracle_db
+    restart: always
+    environment:
+      ORACLE_PDB: ORCLCDB
+      ORACLE_PWD: password_oracle
+    ports:
+      - "1521:1521"
+    profiles:
+      - oracle19c
+
+  oracle:
+    image: container-registry.oracle.com/database/enterprise:latest
+    container_name: oracle19c_db
+    restart: always
+    environment:
+      ORACLE_PDB: ORCLCDB
+      ORACLE_PWD: password_oracle
+    ports:
+      - "1522:1521"
+    profiles:
+      - oracle
+
+  mssql19:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql16_db
+    restart: always
+    environment:
+      SA_PASSWORD: Password@123
+      ACCEPT_EULA: Y
+    ports:
+      - "1434:1433"
+    profiles:
+      - mssql19
+  
+  postgres9:
+    image: postgres:9.6
+    container_name: postgres9_6_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jiradb
+    ports:
+      - "5433:5432"
+    profiles:
+      - postgres9
