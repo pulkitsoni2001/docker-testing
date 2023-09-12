@@ -1,0 +1,98 @@
+# version: '3'
+
+# services:
+#   jira:
+#     container_name: jira1
+#     depends_on:
+#       - postgresql
+#     image: atlassian/jira-software:8.5.4
+#     # networks:
+#     #   - jiranet
+#     volumes:
+#       - jiradata:/var/atlassian/jira
+#       - jira-home:/var/atlassian/application-data/jira
+#     ports:
+#       - '8080:8080'  # Change the port mapping
+#     environment:
+#       # - 'ATL_JDBC_URL=jdbc:postgresql://postgresql:5432/jiradb'
+#       # - 'ATL_JDBC_USER=jiradbuser'
+#       # - 'ATL_JDBC_PASSWORD=admin'
+#       # - 'SETENV_JVM_MINIMUM_MEMORY=2048m'
+#       # - 'SETENV_JVM_MAXIMUM_MEMORY=4096m'
+#       # - 'JIRA_PROXY_NAME='
+#       # - 'JIRA_PROXY_PORT='
+#       # - 'JIRA_PROXY_SCHEME='
+#       # # JIRA HOME is the name of the volume that is created by the jira service
+#       # - 'JIRA_HOME=/var/atlassian/application-data/jira'
+#       JIRA_HOME: /var/atlassian/application-data/jira
+#       ATL_JDBC_URL: jdbc:postgresql://postgresql:5432/jiradb
+#       ATL_JDBC_USER: jiradbuser
+#       ATL_JDBC_PASSWORD: admin
+#       ATL_DB_TYPE: postgres72
+#       ATL_DB_DRIVER: org.postgresql.Driver
+#       JIRA_LOG_STDOUT: true
+
+#   postgresql:
+#     container_name: postgres
+#     image: postgres:9.6
+#     expose:
+#       - '5432'
+#     # networks:
+#     #   - jiranet
+#     volumes:
+#       - postgresqldata:/var/lib/postgresql/data
+#     environment:
+#       - 'POSTGRES_USER=jiradbuser'
+#       # CHANGE THE PASSWORD!
+#       - 'POSTGRES_PASSWORD=admin'
+#       - 'POSTGRES_DB=jiradb'
+#       - 'POSTGRES_ENCODING=UNICODE'
+#       - 'POSTGRES_COLLATE=C'
+#       - 'POSTGRES_COLLATE_TYPE=C'
+
+# volumes:
+#   jiradata:
+#   postgresqldata:
+#     external: false
+#   jira-home:
+
+
+version: '3'
+
+services:
+  jira:
+    container_name: jira
+    image: atlassian/jira-software:8.5.4
+    volumes:
+      - jira-data:/var/atlassian/jira
+      - jira-home:/var/atlassian/application-data/jira
+    ports:
+      - '8080:8080'
+    environment:
+      JIRA_HOME: /var/atlassian/application-data/jira
+      ATL_JDBC_URL: jdbc:postgresql://postgresql:5432/jiradb?currentSchema=public
+      ATL_JDBC_USER: jiradbuser
+      ATL_JDBC_PASSWORD: admin
+      ATL_DB_TYPE: postgresql
+      # driver class name
+      ATL_DB_DRIVER: org.postgresql.Driver
+      JIRA_LOG_STDOUT: true
+
+  postgresql:
+    container_name: postgres
+    image: postgres:9.6
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: jiradbuser
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: jiradb
+      POSTGRES_ENCODING: UNICODE
+      POSTGRES_COLLATE: C
+      POSTGRES_COLLATE_TYPE: C
+
+volumes:
+  jira-data:
+  jira-home:
+  postgres-data:
+
